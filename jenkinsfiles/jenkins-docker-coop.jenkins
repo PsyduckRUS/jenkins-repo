@@ -8,6 +8,7 @@ pipeline {
         stage('Build and push docker image') {
             agent { label 'test-node-dotnet' } 
             steps {
+                script {
                 echo '==================================NODE IS HERE=================================='
                 sh "cd ;" +
                      "cd webapp;" + 
@@ -15,16 +16,19 @@ pipeline {
                      "dotnet publish;"
                      "docker build -t psyduckrus/jenkins-docker-dotnet:latest .;"
                      "docker push psyduckrus/jenkins-docker-dotnet:latest"
+                }
             }
         }
         stage('Run docker on server via SSH') {
             agent { label 'master' } 
             steps {
+                script {
                 echo '==================================MASTER IS HERE=================================='
                 sh "ssh root@server;"
                 "docker pull psyduckrus/jenkins-docker-dotnet:latest;"
                 "docker stop \$(docker ps -a -q);"
                 "docker run -d -p 80:80 --rm psyduckrus/jenkins-docker-dotnet:latest"
+                }
             }
         }        
     }

@@ -20,6 +20,6 @@ pipeline {
             steps {
                 sh 'ssh root@server \'uptime\''
             }
-        }
+        }        
     }
 }

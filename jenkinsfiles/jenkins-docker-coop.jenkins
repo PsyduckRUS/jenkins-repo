@@ -11,8 +11,8 @@ pipeline {
         stage('Build and push docker image') {
             agent { label 'test-node-dotnet' } 
             steps {
-                script {
                 echo '==================================NODE IS HERE=================================='
+                script {
                 sh "cd ;" +
                      "cd webapp;" +
                      "git pull;" +

@@ -5,18 +5,6 @@ properties([disableConcurrentBuilds()])
 pipeline {
     agent none 
     stages {
-        stage('Pull jenkinsfiles') {
-            agent { label 'master'  } 
-            steps {
-                sh "ls;" +
-                     "cd ;"
-                     "cd webapp;" + 
-                     "git pull;" + 
-                     "dotnet publish;"
-                     "docker build psyduckrus/jenkins-docker-dotnet:latest .;"
-                     "docker push"
-            }
-        }
         stage('Build and push docker image') {
             agent { label 'test-node-dotnet' } 
             steps {
@@ -31,7 +19,7 @@ pipeline {
         stage('Run docker on server via SSH') {
             agent { label 'master' } 
             steps {
-                sh "ssh root@server;""
+                sh "ssh root@server;"
                 "docker run -d -p 80:80 --rm psyduckrus/jenkins-docker-dotnet:latest"
             }
         }        

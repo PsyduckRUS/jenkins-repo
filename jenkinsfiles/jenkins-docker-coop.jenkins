@@ -11,6 +11,7 @@ pipeline {
                 sh "cd ;" +
                      "cd webapp;" + 
                      "git pull;" + 
+                     "ls;" + 
                      "dotnet publish;"
                      "docker build psyduckrus/jenkins-docker-dotnet:latest .;"
                      "docker push"

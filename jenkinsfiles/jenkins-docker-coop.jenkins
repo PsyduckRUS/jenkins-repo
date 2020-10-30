@@ -9,10 +9,10 @@ pipeline {
             agent { label 'test-node-dotnet' } 
             steps {
                 script {
-                echo '========================================================NODE IS HERE'========================================================
+                echo '==================================NODE IS HERE=================================='
                 sh "cd ;" +
-                     "cd webapp;" + 
-                     "git pull;" + 
+                     "cd webapp;" +
+                     "git pull;" +
                      "dotnet publish;" +
                      "docker build -t psyduckrus/jenkins-docker-dotnet:latest .;" +
                      "docker push psyduckrus/jenkins-docker-dotnet:latest"
@@ -23,7 +23,7 @@ pipeline {
             agent { label 'master' } 
             steps {
                 script {
-                echo '========================================================MASTER IS HERE'========================================================
+                echo '==================================MASTER IS HERE=================================='
                 sh "ssh root@server;" +
                 "docker run -d -p 80:80 --rm psyduckrus/jenkins-docker-dotnet:latest"
                 }

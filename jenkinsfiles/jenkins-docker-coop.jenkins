@@ -23,7 +23,7 @@ pipeline {
                 echo '==================================MASTER IS HERE=================================='
                 sh "ssh root@server;"
                 "docker pull psyduckrus/jenkins-docker-dotnet:latest;"
-                "docker stop $(docker ps -a -q);"
+                "docker stop \$(docker ps -a -q);"
                 "docker run -d -p 80:80 --rm psyduckrus/jenkins-docker-dotnet:latest"
             }
         }        
